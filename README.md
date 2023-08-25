@@ -1,1 +1,1 @@
-# Eduoplatform
+# Eduplatform
