@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('mentorship', '0004_create_group_model'),
+        ("mentorship", "0004_create_group_model"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='group',
-            name='student',
-            field=models.ManyToManyField(blank=True, to='mentorship.student'),
+            model_name="group",
+            name="student",
+            field=models.ManyToManyField(blank=True, to="mentorship.student"),
         ),
     ]

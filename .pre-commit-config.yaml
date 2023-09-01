@@ -1,0 +1,45 @@
+# Note that we recommend using https://github.com/psf/black-pre-commit-mirror instead
+# This will work about 2x as fast as using the hooks in this repository
+repos:
+- id: black
+  name: black
+  description: "Black: The uncompromising Python code formatter"
+  entry: black
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  require_serial: true
+  types_or: [python, pyi]
+- id: black-jupyter
+  name: black-jupyter
+  description:
+    "Black: The uncompromising Python code formatter (with Jupyter Notebook support)"
+  entry: black
+  language: python
+  minimum_pre_commit_version: 2.9.2
+  require_serial: true
+  types_or: [python, pyi, jupyter]
+  additional_dependencies: [".[jupyter]"]
+
+- id: flake8
+  name: flake8
+  description: '`flake8` is a command-line utility for enforcing style consistency across Python projects.'
+  entry: flake8
+  language: python
+  types: [python]
+  require_serial: true
+
+- id: isort
+  name: isort
+  entry: isort
+  require_serial: true
+  language: python
+  types_or: [cython, pyi, python]
+  args: ['--filter-files']
+  minimum_pre_commit_version: '2.9.2'
+
+
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.0.1
+  hooks:
+  - id: trailing-whitespace

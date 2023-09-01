@@ -1,6 +1,5 @@
 from django.db import models
-from mentorship.models import Teacher
-from mentorship.models import Student
+from mentorship.models import Student, Teacher
 
 
 class Course(models.Model):
@@ -28,6 +27,7 @@ class Topic(models.Model):
         verbose_name = "topic"
         verbose_name_plural = "topics"
 
+
 class Article(models.Model):
     title = models.CharField(max_length=100)
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
@@ -40,6 +40,7 @@ class Article(models.Model):
     class Meta:
         verbose_name = "article"
         verbose_name_plural = "articles"
+
 
 class Test(models.Model):
     title = models.CharField(max_length=100)
@@ -55,6 +56,7 @@ class Test(models.Model):
         verbose_name = "test"
         verbose_name_plural = "tests"
 
+
 class Question(models.Model):
     text = models.CharField(max_length=100)
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
@@ -66,6 +68,7 @@ class Question(models.Model):
     class Meta:
         verbose_name = "question"
         verbose_name_plural = "questions"
+
 
 class Answer(models.Model):
     text = models.CharField(max_length=100)
@@ -79,6 +82,7 @@ class Answer(models.Model):
         verbose_name = "answer"
         verbose_name_plural = "answers"
 
+
 class Attempt(models.Model):
     test = models.ForeignKey(Test, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -90,10 +94,3 @@ class Attempt(models.Model):
     class Meta:
         verbose_name = "attempt"
         verbose_name_plural = "attempts"
-
-
-
-
-
-
-

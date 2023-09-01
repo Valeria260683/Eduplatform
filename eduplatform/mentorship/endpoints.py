@@ -1,13 +1,14 @@
-from rest_framework import permissions, mixins
-from rest_framework.generics import ListAPIView
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from itertools import chain
+
 from django.http import HttpResponse
+from rest_framework import mixins, permissions
+from rest_framework.generics import ListAPIView
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
-
-from .models import User, Teacher, Student, Group
-from .serializers import UserSerializer, TeacherSerializer, StudentSerializer,\
-GroupSerializer, TeacherStudentSerializer, RegisterSerializer
+from .models import Group, Student, Teacher, User
+from .serializers import (GroupSerializer, RegisterSerializer,
+                          StudentSerializer, TeacherSerializer,
+                          TeacherStudentSerializer, UserSerializer)
 
 
 class UserViewset(ModelViewSet):
@@ -15,20 +16,24 @@ class UserViewset(ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAdminUser]
 
+
 class TeacherViewset(ModelViewSet):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
     permission_classes = [permissions.IsAdminUser]
+
 
 class StudentViewset(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = [permissions.IsAdminUser]
 
+
 class GroupViewset(ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAdminUser]
+
 
 class GroupStudentAPIView(ListAPIView):
     queryset = Student.objects.all()
@@ -38,6 +43,7 @@ class GroupStudentAPIView(ListAPIView):
     def get_queryset(self):
         group = self.kwargs["id"]
         return Student.objects.filter(group=group)
+
 
 class GroupMembersAPIView(ListAPIView):
     serializer_class = TeacherStudentSerializer
@@ -49,6 +55,7 @@ class GroupMembersAPIView(ListAPIView):
         teacher = Teacher.objects.filter(group=group)
         members = list(chain(set(students), set(teacher)))
         return members
+
 
 class RegisterUserViewSet(mixins.CreateModelMixin, GenericViewSet):
     permission_classes = [permissions.AllowAny]

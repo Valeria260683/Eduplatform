@@ -1,12 +1,13 @@
 from rest_framework import serializers
-from .models import User, Teacher, Student, Group
 
+from .models import Group, Student, Teacher, User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
+
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,8 +42,6 @@ class TeacherStudentSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-
-
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -56,34 +55,19 @@ class RegisterSerializer(serializers.ModelSerializer):
             user = ModelClass.objects.create_user(**validated_data)
         except TypeError:
             msg = (
-                    'Got a "TypeError" when calling "%s.%s.create()".'
-                    'This may be because you have a writable field on the'
-                    'serializer class that is not a valid argument to "%s.%s.create()".'
-                    'You may need to make the field read-only, or override the %s.create()'
-                    'method to handle this correctly.' %
-                    (
-                        ModelClass._meta.object_name,
-                        ModelClass._default_manager.name,
-                        ModelClass._meta.object_name,
-                        ModelClass._default_manager.name,
-                        self.__class__.__name__,
-                    )
+                'Got a "TypeError" when calling "%s.%s.create()".'
+                "This may be because you have a writable field on the"
+                'serializer class that is not a valid argument to "%s.%s.create()".'
+                "You may need to make the field read-only, or override the %s.create()"
+                "method to handle this correctly."
+                % (
+                    ModelClass._meta.object_name,
+                    ModelClass._default_manager.name,
+                    ModelClass._meta.object_name,
+                    ModelClass._default_manager.name,
+                    self.__class__.__name__,
+                )
             )
             raise TypeError(msg)
 
         return user
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

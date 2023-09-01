@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Course, Topic, Article, Test, Question, Answer, Attempt
+
+from .models import Answer, Article, Attempt, Course, Question, Test, Topic
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -55,5 +56,7 @@ class TopicArticleSerializer(serializers.ModelSerializer):
             case False:
                 serializer = ArticleSerializer(object)
             case _:
-                raise Exception("Nothing to serialize. Chooses are: Topic or Article instances.")
+                raise Exception(
+                    "Nothing to serialize. Chooses are: Topic or Article instances."
+                )
         return serializer.data
